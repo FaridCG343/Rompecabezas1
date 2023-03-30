@@ -162,6 +162,30 @@ namespace Rompecabezas1
                     return;
                 }
             }
+            foreach (PictureBox pb in res)
+            {
+                if (e.X >= pb.Location.X && e.X <= pb.Location.X + pb.Width
+                    && e.Y >= pb.Location.Y && e.Y <= pb.Location.Y + pb.Height && pb.Image != null)
+                {
+                    foreach (PictureBox pb2 in imgDesordenadas)
+                    {
+                        if (pb2.Tag.ToString() == pb.Tag.ToString())
+                        {
+                            pbSeleccionado = pb2;
+                            posX = e.X;
+                            posY = e.Y;
+                            posIx = pb2.Location.X;
+                            posIy = pb2.Location.Y;
+                            pb2.Location = new Point(posX, posY);
+                            pb2.Visible = true;
+                            pb.Image = null;
+                            pb.Tag = "";
+                            return;
+                        }
+                    }
+                }
+            }
+
         }
 
         private void FormJuegoP_MouseMove(object sender, MouseEventArgs e)
@@ -182,8 +206,7 @@ namespace Rompecabezas1
                 foreach (PictureBox pb in res)
                 {
                     if (e.X >= pb.Location.X && e.X <= pb.Location.X + pb.Width
-                        && e.Y >= pb.Location.Y && e.Y <= pb.Location.Y + pb.Height && pb.Image == null
-                        && pbSeleccionado.Tag.ToString() == cont.ToString())
+                        && e.Y >= pb.Location.Y && e.Y <= pb.Location.Y + pb.Height && pb.Image == null)
                     {
                         pb.Tag = pbSeleccionado.Tag;
                         pb.Image = pbSeleccionado.Image;
